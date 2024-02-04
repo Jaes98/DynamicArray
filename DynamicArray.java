@@ -15,11 +15,11 @@ public class DynamicArray {
 
 
     public void add(String object) {
-        if (size == dArray.length) {
+        if (size >= dArray.length) {
             System.out.println("Array er fuld, laver nyt array med " + growSize + " pladser.");
             grow();
         }
-        dArray[size()] = object;
+        dArray[size] = object;
         size++;
         printArray();
     }
@@ -38,7 +38,7 @@ public class DynamicArray {
     public void remove(int index) {
         dArray[index] = null;
         size--;
-        for (int i = index; i < size - 1; i++) {
+        for (int i = index; i < size; i++) {
         dArray[i] = dArray[i + 1];
     }
     if(canShrink()) {
@@ -73,11 +73,12 @@ public class DynamicArray {
         printArray();
     }
     public boolean canShrink() {
-        return dArray.length > size && dArray.length - size > growSize && dArray.length - growSize >= INITIAL_SIZE;
+        boolean check = dArray.length > size;
+        return check;
     }
 
     public void shrink() {
-        String[] newArray = new String[dArray.length - INITIAL_SIZE];
+        String[] newArray = new String[size];
         for (int i = 0; i < newArray.length; i++) {
             newArray[i] = dArray[i];
         }
