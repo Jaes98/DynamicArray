@@ -39,6 +39,9 @@ public class DynamicArray {
     }
     dArray[size - 1] = null;
     size--;
+    if(canShrink()) {
+        shrink();
+    }
     printArray();
     }   
     public String get(int index) {
@@ -54,6 +57,9 @@ public class DynamicArray {
     }
     public void clear() {
         size = 0;
+        if(canShrink()) {
+            shrink();
+        }
         printArray();
     }
     private void grow() {
