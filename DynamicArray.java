@@ -1,9 +1,10 @@
 import java.util.Arrays;
 
 public class DynamicArray { 
-    int capacity = 10;
+    private int growSize = 20;
+    int INITIAL_SIZE = 10;
     int size = 0;
-    public String[] dArray = new String[capacity];
+    public String[] dArray = new String[INITIAL_SIZE];
 
     public static void main(String[] args) {
         DynamicArray dArray = new DynamicArray();
@@ -16,8 +17,8 @@ public class DynamicArray {
 
     public void add(String object) {
         if (size == dArray.length) {
-            System.out.println("Array er fuld");
-            return;
+            System.out.println("Array er fuld, laver nyt array med " + growSize + " pladser.");
+            grow();
         }
         dArray[size] = object;
         size++;
@@ -53,6 +54,26 @@ public class DynamicArray {
     }
     public void clear() {
         size = 0;
+        printArray();
+    }
+    private void grow() {
+        String[] newArray = new String[dArray.length + growSize];
+        for (int i = 0; i < dArray.length; i++) {
+            newArray[i] = dArray[i];
+        }
+        dArray = newArray;
+        printArray();
+    }
+    public boolean canShrink() {
+        return dArray.length > size && (dArray.length - size) > growSize && (dArray.length - growSize) >= INITIAL_SIZE;
+    }
+
+    public void shrink() {
+        String[] newArray = new String[dArray.length - growSize];
+        for (int i = 0; i < newArray.length; i++) {
+            newArray[i] = dArray[i];
+        }
+        dArray = newArray;
         printArray();
     }
     public void printArray() {
